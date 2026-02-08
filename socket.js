@@ -7,7 +7,7 @@ const Project = require('./models/Project');
 module.exports = function init(server) {
   const io = new Server(server, {
     cors: {
-      origin: 'http://localhost:3000',
+      origin: 'https://srit-campusconnect.netlify.app',
       methods: ['GET', 'POST'],
       credentials: true,
     },
