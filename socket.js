@@ -5,7 +5,7 @@ const User = require('./models/User');
 const Project = require('./models/Project');
 const Club = require('./models/Club');
 
-// 🟢 Track online users per room
+//  Track online users per room
 const onlineUsers = new Map(); // room -> Set(userIds)
 
 module.exports = function init(server) {
@@ -70,7 +70,7 @@ module.exports = function init(server) {
         if (room === 'general') {
           socket.join('general');
           trackOnlineUser(room, userId);
-          console.log('✅ Joined general room');
+          console.log(' Joined general room');
           return;
         }
 
@@ -91,13 +91,13 @@ module.exports = function init(server) {
             project.members?.map(m => m.toString()).includes(userId);
 
           if (!isFaculty && !isMember) {
-            console.log('🚫 Unauthorized project join blocked');
+            console.log(' Unauthorized project join blocked');
             return;
           }
 
           socket.join(room);
           trackOnlineUser(room, userId);
-          console.log('✅ Joined project room:', room);
+          console.log(' Joined project room:', room);
           return;
         }
 
@@ -115,13 +115,13 @@ module.exports = function init(server) {
             club.members?.map(m => m.toString()).includes(userId);
 
           if (!isAdmin && !isMember) {
-            console.log('🚫 Unauthorized club join blocked');
+            console.log('Unauthorized club join blocked');
             return;
           }
 
           socket.join(room);
           trackOnlineUser(room, userId);
-          console.log('✅ Joined club room:', room);
+          console.log(' Joined club room:', room);
           return;
         }
 
@@ -139,7 +139,7 @@ module.exports = function init(server) {
     });
 
     // ==================================================
-    // ✍ TYPING INDICATOR
+    //  TYPING INDICATOR
     // ==================================================
     socket.on('typing', (room) => {
       if (!socket.user) return;
@@ -158,7 +158,7 @@ module.exports = function init(server) {
         if (!room || !text) return;
 
         if (!socket.rooms.has(room)) {
-          console.log('🚫 Message blocked (not in room)');
+          console.log(' Message blocked (not in room)');
           return;
         }
 
@@ -212,7 +212,7 @@ module.exports = function init(server) {
     });
 
     // ==================================================
-    // ❌ DISCONNECT
+    //  DISCONNECT
     // ==================================================
     socket.on('disconnect', () => {
       if (!socket.user) return;
@@ -224,11 +224,11 @@ module.exports = function init(server) {
         }
       });
 
-      console.log('🔌 Socket disconnected:', socket.id);
+      console.log('Socket disconnected:', socket.id);
     });
 
     // ==================================================
-    // 🟢 ONLINE USER HELPERS
+    // ONLINE USER HELPERS
     // ==================================================
     function trackOnlineUser(room, userId) {
       if (!onlineUsers.has(room)) {
